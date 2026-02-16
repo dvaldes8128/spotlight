@@ -5,7 +5,7 @@ import shutil
 import sys
 
 import numpy as np
-
+import torch
 from sklearn.model_selection import ParameterSampler
 
 from spotlight.datasets.movielens import get_movielens_dataset
@@ -15,8 +15,9 @@ from spotlight.sequence.representations import CNNNet
 from spotlight.evaluation import sequence_mrr_score
 
 
-CUDA = (os.environ.get('CUDA') is not None or
-        shutil.which('nvidia-smi') is not None)
+CUDA = torch.cuda.is_available() and (
+    os.environ.get('CUDA') is not None or shutil.which('nvidia-smi') is not None
+)
 
 NUM_SAMPLES = 100
 

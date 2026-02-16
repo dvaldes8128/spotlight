@@ -4,11 +4,10 @@ import torch
 
 
 def gpu(tensor, gpu=False):
-
-    if gpu:
+    """Move tensor to GPU if requested and CUDA is available."""
+    if gpu and torch.cuda.is_available():
         return tensor.cuda()
-    else:
-        return tensor
+    return tensor
 
 
 def cpu(tensor):
@@ -65,5 +64,5 @@ def set_seed(seed, cuda=False):
 
     torch.manual_seed(seed)
 
-    if cuda:
+    if cuda and torch.cuda.is_available():
         torch.cuda.manual_seed(seed)
